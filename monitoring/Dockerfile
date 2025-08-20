@@ -34,11 +34,7 @@ RUN set -eux; \
     sed -ri 's/^(.*PermSize=.*)$/# \1/g' /opt/hbase/conf/hbase-env.sh || true
 
 # ---- HBase 전용 JRE 8 번들 ----
-RUN curl -fL "https://github.com/adoptium/temurin8-binaries/releases/download/jre8u412-b08/OpenJDK8U-jre_x64_linux_hotspot_8u412b08.tar.gz" \
-    -o /tmp/jre8.tgz \
- && mkdir -p /opt/jre8 \
- && tar -xzf /tmp/jre8.tgz -C /opt/jre8 --strip-components=1 \
- && rm -f /tmp/jre8.tgz
+RUN apt-get update && apt-get install -y openjdk-8-jre && rm -rf /var/lib/apt/lists/*
 
 # ---- Pinpoint HBase 스크립트/서버 JAR(3.0.3) ----
 RUN curl -fL "https://raw.githubusercontent.com/pinpoint-apm/pinpoint/v${PINPOINT_VERSION}/hbase/scripts/hbase-create.hbase" \
