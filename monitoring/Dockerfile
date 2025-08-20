@@ -1,5 +1,6 @@
 # Java 21로 Collector/Web 구동
 FROM eclipse-temurin:21-jdk-jammy AS builder
+WORKDIR /monitoring
 
 ARG PINPOINT_VERSION=3.0.3
 ARG HBASE_VERSION=2.2.6
@@ -49,7 +50,7 @@ RUN curl -fL "https://raw.githubusercontent.com/pinpoint-apm/pinpoint/v${PINPOIN
       -o /opt/pinpoint/pinpoint-web-boot-${PINPOINT_VERSION}.jar
 
 # 실행 스크립트
-COPY start.sh /opt/pinpoint/start.sh
+COPY monitoring/start.sh /opt/pinpoint/start.sh
 RUN chmod +x /opt/pinpoint/start.sh \
  && chown -R pinpoint:pinpoint /opt/hbase* /var/log/hbase /opt/pinpoint /opt/jre8
 

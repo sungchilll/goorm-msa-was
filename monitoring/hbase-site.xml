@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<configuration>
+    <property>
+        <name>hbase.rootdir</name>
+        <value>file:///opt/hbase-data</value>
+    </property>
+    <property>
+        <name>hbase.zookeeper.property.dataDir</name>
+        <value>/opt/hbase-zk</value>
+    </property>
+</configuration>
