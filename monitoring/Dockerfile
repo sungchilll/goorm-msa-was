@@ -25,7 +25,7 @@ RUN curl -fL "https://archive.apache.org/dist/hbase/${HBASE_VERSION}/hbase-${HBA
  && rm -f /tmp/hbase.tgz
 
 # HBase 설정파일
-COPY hbase-site.xml /opt/hbase/conf/hbase-site.xml
+COPY monitoring/hbase-site.xml /opt/hbase/conf/hbase-site.xml
 RUN set -eux; \
     echo 'export HBASE_MANAGES_ZK=true'                    >> /opt/hbase/conf/hbase-env.sh; \
     echo 'export HBASE_LOG_DIR=${HBASE_LOG_DIR:-/var/log/hbase}' >> /opt/hbase/conf/hbase-env.sh; \
