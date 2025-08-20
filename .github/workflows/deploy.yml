@@ -27,18 +27,18 @@ jobs:
         with:
           token: ${{ github.token }}
           filters: |
-            ai:
-              - 'ai-service/**'
-            store:
-              - 'store-service/**'
-            cart:
-              - 'cart-service/**'
-            user:
-              - 'user-service/**'
-            auth:
-              - 'auth-service/**'
-            common:
-              - 'module-common/**'
+            # ai:
+            #   - 'ai-service/**'
+            # store:
+            #   - 'store-service/**'
+            # cart:
+            #   - 'cart-service/**'
+            # user:
+            #   - 'user-service/**'
+            # auth:
+            #   - 'auth-service/**'
+            # common:
+            #   - 'module-common/**'
             monitoring:
               - 'monitoring/**'
 
@@ -49,40 +49,40 @@ jobs:
         run: |
           modules=()
 
-          if [ "${{ steps.filter.outputs.store }}" = "true" ]; then
-            modules+=("{\"name\":\"store-service\",\"repo\":\"peopleofdelivery/store-service\"}")
-          fi
-          if [ "${{ steps.filter.outputs.cart }}" = "true" ]; then
-            modules+=("{\"name\":\"cart-service\",\"repo\":\"peopleofdelivery/cart-service\"}")
-          fi
-          if [ "${{ steps.filter.outputs.user }}" = "true" ]; then
-            modules+=("{\"name\":\"user-service\",\"repo\":\"peopleofdelivery/user-service\"}")
-          fi
-          if [ "${{ steps.filter.outputs.auth }}" = "true" ]; then
-            modules+=("{\"name\":\"auth-service\",\"repo\":\"peopleofdelivery/auth-service\"}")
-          fi
-          if [ "${{ steps.filter.outputs.ai }}" = "true" ]; then
-            modules+=("{\"name\":\"ai-service\",\"repo\":\"peopleofdelivery/ai-service\"}")
-          fi
+          # if [ "${{ steps.filter.outputs.store }}" = "true" ]; then
+          #   modules+=("{\"name\":\"store-service\",\"repo\":\"peopleofdelivery/store-service\"}")
+          # fi
+          # if [ "${{ steps.filter.outputs.cart }}" = "true" ]; then
+          #   modules+=("{\"name\":\"cart-service\",\"repo\":\"peopleofdelivery/cart-service\"}")
+          # fi
+          # if [ "${{ steps.filter.outputs.user }}" = "true" ]; then
+          #   modules+=("{\"name\":\"user-service\",\"repo\":\"peopleofdelivery/user-service\"}")
+          # fi
+          # if [ "${{ steps.filter.outputs.auth }}" = "true" ]; then
+          #   modules+=("{\"name\":\"auth-service\",\"repo\":\"peopleofdelivery/auth-service\"}")
+          # fi
+          # if [ "${{ steps.filter.outputs.ai }}" = "true" ]; then
+          #   modules+=("{\"name\":\"ai-service\",\"repo\":\"peopleofdelivery/ai-service\"}")
+          # fi
           if [ "${{ steps.filter.outputs.monitoring }}" = "true" ]; then
             modules+=("{\"name\":\"monitoring\",\"repo\":\"peopleofdelivery/monitoring\"}")
           fi
-          if [ "${{ steps.filter.outputs.common }}" = "true" ]; then
-            modules+=("{\"name\":\"module-common\",\"repo\":\"peopleofdelivery/module-common\"}")
-          fi
+          # if [ "${{ steps.filter.outputs.common }}" = "true" ]; then
+          #   modules+=("{\"name\":\"module-common\",\"repo\":\"peopleofdelivery/module-common\"}")
+          # fi
 
-          # common 변경 시 모든 모듈 재빌드
-          if [ "${{ steps.filter.outputs.common }}" = "true" ]; then
-            modules=( \
-              "{\"name\":\"store-service\",\"repo\":\"peopleofdelivery/store-service\"}" \
-              "{\"name\":\"cart-service\",\"repo\":\"peopleofdelivery/cart-service\"}" \
-              "{\"name\":\"user-service\",\"repo\":\"peopleofdelivery/user-service\"}" \
-              "{\"name\":\"auth-service\",\"repo\":\"peopleofdelivery/auth-service\"}" \
-              "{\"name\":\"ai-service\",\"repo\":\"peopleofdelivery/ai-service\"}" \
-              "{\"name\":\"monitoring\",\"repo\":\"peopleofdelivery/monitoring\"}" \
-              "{\"name\":\"module-common\",\"repo\":\"peopleofdelivery/module-common\"}" \
-            )
-          fi
+          # # common 변경 시 모든 모듈 재빌드
+          # if [ "${{ steps.filter.outputs.common }}" = "true" ]; then
+          #   modules=( \
+          #     "{\"name\":\"store-service\",\"repo\":\"peopleofdelivery/store-service\"}" \
+          #     "{\"name\":\"cart-service\",\"repo\":\"peopleofdelivery/cart-service\"}" \
+          #     "{\"name\":\"user-service\",\"repo\":\"peopleofdelivery/user-service\"}" \
+          #     "{\"name\":\"auth-service\",\"repo\":\"peopleofdelivery/auth-service\"}" \
+          #     "{\"name\":\"ai-service\",\"repo\":\"peopleofdelivery/ai-service\"}" \
+          #     "{\"name\":\"monitoring\",\"repo\":\"peopleofdelivery/monitoring\"}" \
+          #     "{\"name\":\"module-common\",\"repo\":\"peopleofdelivery/module-common\"}" \
+          #   )
+          # fi
 
           if [ ${#modules[@]} -eq 0 ]; then
             echo '{"include":[]}' > matrix.json
