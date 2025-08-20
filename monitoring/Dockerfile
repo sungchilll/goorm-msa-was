@@ -55,7 +55,8 @@ RUN curl -fL "https://repo1.maven.org/maven2/com/navercorp/pinpoint/pinpoint-col
 # 실행 스크립트
 COPY monitoring/start.sh /opt/pinpoint/start.sh
 RUN chmod +x /opt/pinpoint/start.sh \
- && chown -R pinpoint:pinpoint /opt/hbase* /var/log/hbase /opt/pinpoint /opt/jre8
+ && chown -R pinpoint:pinpoint /opt/hbase* /var/log/hbase /opt/pinpoint
+
 
 USER pinpoint
 EXPOSE 8080 9991 9992 9993 16010
