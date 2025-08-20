@@ -36,13 +36,21 @@ RUN set -eux; \
 # ---- HBase 전용 JRE 8 번들 ----
 RUN apt-get update && apt-get install -y openjdk-8-jre && rm -rf /var/lib/apt/lists/*
 
-# ---- Pinpoint HBase 스크립트/서버 JAR(3.0.3) ----
-RUN curl -fL "https://raw.githubusercontent.com/pinpoint-apm/pinpoint/v${PINPOINT_VERSION}/hbase/scripts/hbase-create.hbase" \
-      -o /opt/pinpoint/hbase-create.hbase \
- && curl -fL "https://github.com/pinpoint-apm/pinpoint/releases/download/v${PINPOINT_VERSION}/pinpoint-collector-boot-${PINPOINT_VERSION}.jar" \
-      -o /opt/pinpoint/pinpoint-collector-boot-${PINPOINT_VERSION}.jar \
- && curl -fL "https://github.com/pinpoint-apm/pinpoint/releases/download/v${PINPOINT_VERSION}/pinpoint-web-boot-${PINPOINT_VERSION}.jar" \
-      -o /opt/pinpoint/pinpoint-web-boot-${PINPOINT_VERSION}.jar
+# ---- HBase 스크립트 ----
+RUN curl -fL "https://downloads.apache.org/hbase/2.5.12/hbase-2.5.12-bin.tar.gz" \
+    -o /tmp/hbase.tgz \
+ && tar -xzf /tmp/hbase.tgz -C /opt \
+ && ln -s /opt/hbase-2.5.12 /opt/hbase \
+ && mkdir -p /opt/hbase-data /opt/hbase-zk /var/log/hbase \
+ && rm -f /tmp/hbase.tgz
+
+
+# ---- Pinpoint /서버 JAR(3.0.3) ----
+RUN curl -fL "https://repo1.maven.org/maven2/com/navercorp/pinpoint/pinpoint-collector/${PINPOINT_VERSION}/pinpoint-collector-${PINPOINT_VERSION}-exec.jar" \
+    -o /opt/pinpoint/pinpoint-collector-${PINPOINT_VERSION}-exec.jar \
+ && curl -fL "https://repo1.maven.org/maven2/com/navercorp/pinpoint/pinpoint-web/${PINPOINT_VERSION}/pinpoint-web-${PINPOINT_VERSION}-exec.jar" \
+    -o /opt/pinpoint/pinpoint-web-${PINPOINT_VERSION}-exec.jar
+
 
 # 실행 스크립트
 COPY monitoring/start.sh /opt/pinpoint/start.sh
