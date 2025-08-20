@@ -34,9 +34,8 @@ RUN set -eux; \
     sed -ri 's/^(.*PermSize=.*)$/# \1/g' /opt/hbase/conf/hbase-env.sh || true
 
 # ---- HBase 전용 JRE 8 번들 ----
-# (필요 시 다른 8u 버전으로 교체 가능)
-RUN curl -fL "https://github.com/adoptium/temurin8-binaries/releases/download/jre8u402-b06/OpenJDK8U-jre_x64_linux_hotspot_8u402b06.tar.gz" \
-      -o /tmp/jre8.tgz \
+RUN curl -fL "https://github.com/adoptium/temurin8-binaries/releases/download/jre8u412-b08/OpenJDK8U-jre_x64_linux_hotspot_8u412b08.tar.gz" \
+    -o /tmp/jre8.tgz \
  && mkdir -p /opt/jre8 \
  && tar -xzf /tmp/jre8.tgz -C /opt/jre8 --strip-components=1 \
  && rm -f /tmp/jre8.tgz
