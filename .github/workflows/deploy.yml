@@ -1,8 +1,8 @@
 name: Build & Push changed modules to ECR
 
-on:
-  push:
-    branches: [ develop ]  # develop에 push(PR merge) 시 실행
+on: workflow_dispatch
+#   push:
+#     branches: [ develop ]  # develop에 push(PR merge) 시 실행
 
 permissions:
   id-token: write    # OIDC용
