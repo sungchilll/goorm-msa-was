@@ -39,6 +39,8 @@ jobs:
               - 'auth-service/**'
             common:
               - 'module-common/**'
+            monitoring:
+              - 'monitoring/**'
 
       # 매트릭스 JSON 생성
       - name: Build matrix JSON
@@ -62,6 +64,9 @@ jobs:
           if [ "${{ steps.filter.outputs.ai }}" = "true" ]; then
             modules+=("{\"name\":\"ai-service\",\"repo\":\"peopleofdelivery/ai-service\"}")
           fi
+          if [ "${{ steps.filter.outputs.monitoring }}" = "true" ]; then
+            modules+=("{\"name\":\"monitoring\",\"repo\":\"peopleofdelivery/monitoring\"}")
+          fi
           if [ "${{ steps.filter.outputs.common }}" = "true" ]; then
             modules+=("{\"name\":\"module-common\",\"repo\":\"peopleofdelivery/module-common\"}")
           fi
@@ -74,6 +79,7 @@ jobs:
               "{\"name\":\"user-service\",\"repo\":\"peopleofdelivery/user-service\"}" \
               "{\"name\":\"auth-service\",\"repo\":\"peopleofdelivery/auth-service\"}" \
               "{\"name\":\"ai-service\",\"repo\":\"peopleofdelivery/ai-service\"}" \
+              "{\"name\":\"monitoring\",\"repo\":\"peopleofdelivery/monitoring\"}" \
               "{\"name\":\"module-common\",\"repo\":\"peopleofdelivery/module-common\"}" \
             )
           fi
