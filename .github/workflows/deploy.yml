@@ -39,8 +39,12 @@ jobs:
             #   - 'auth-service/**'
             # common:
             #   - 'module-common/**'
-            monitoring:
-              - 'monitoring/**'
+            # monitoring:
+            #   - 'monitoring/**'
+            pinpoint-collector:
+              - 'pinpoint-collector/**'
+            pinpoint-web:
+              - 'pinpoint-web/**'
 
       # 매트릭스 JSON 생성
       - name: Build matrix JSON
@@ -64,8 +68,13 @@ jobs:
           # if [ "${{ steps.filter.outputs.ai }}" = "true" ]; then
           #   modules+=("{\"name\":\"ai-service\",\"repo\":\"peopleofdelivery/ai-service\"}")
           # fi
-          if [ "${{ steps.filter.outputs.monitoring }}" = "true" ]; then
-            modules+=("{\"name\":\"monitoring\",\"repo\":\"peopleofdelivery/monitoring\"}")
+          # if [ "${{ steps.filter.outputs.monitoring }}" = "true" ]; then
+          #   modules+=("{\"name\":\"monitoring\",\"repo\":\"peopleofdelivery/monitoring\"}")
+          # fi
+          if [ "${{ steps.filter.outputs.pinpoint-collector }}" = "true" ]; then
+            modules+=("{\"name\":\"pinpoint-collector\",\"repo\":\"peopleofdelivery/pinpoint-collector\"}")
+          if [ "${{ steps.filter.outputs.pinpoint-web }}" = "true" ]; then
+            modules+=("{\"name\":\"pinpoint-web\",\"repo\":\"peopleofdelivery/pinpoint-web\"}")
           fi
           # if [ "${{ steps.filter.outputs.common }}" = "true" ]; then
           #   modules+=("{\"name\":\"module-common\",\"repo\":\"peopleofdelivery/module-common\"}")
